@@ -61,3 +61,17 @@ void alimentar(Mascota &m) {
     cout << "3. Pastel" << endl;
     cout << "Que le quieres dar: ";
     comida = leerNumero(1, 3);
+
+    if (comida == 1) {
+        m.hambre -= 20;
+        m.salud += 5;
+    } else if (comida == 2) {
+        m.hambre -= 40;
+        m.salud -= 5;
+    } else {
+        m.hambre -= 25;
+        m.felicidad += 15;
+        m.salud -= 5;
+    }
+    cout << m.nombre << " comio. Nyam nyam!" << endl;
+}
