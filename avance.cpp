@@ -18,3 +18,20 @@ struct Mascota {
     int turnos = 0;
     int diasVividos = 0;
 };
+
+// ===================== PARTE DE OSWALDO ===================== //
+
+// le da de comer a la mascota
+void alimentar(Mascota &m) {
+    int comida;
+
+    if (m.hambre < 10) {
+        cout << m.nombre << " no tiene hambre" << endl;
+        return;
+    }
+
+    cout << "1. Manzana" << endl;
+    cout << "2. Hamburguesa" << endl;
+    cout << "3. Pastel" << endl;
+    cout << "Que le quieres dar: ";
+    comida = leerNumero(1, 3);
