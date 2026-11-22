@@ -75,3 +75,42 @@ void alimentar(Mascota &m) {
     }
     cout << m.nombre << " comio. Nyam nyam!" << endl;
 }
+// en cada turno la mascota tiene mas hambre, sueño y se ensucia
+void pasarTiempo(Mascota &m) {
+    m.hambre += 5 + m.tamano * 2; // entre mas grande mas hambre le da
+    m.energia -= 5;
+    m.sueno += 8;
+    m.felicidad -= 5;
+    m.higiene -= 5;
+
+    // si no come se muere
+    if (m.hambre >= 100) {
+        m.salud -= 25;
+    } else if (m.hambre >= 80) {
+        m.salud -= 10;
+    }
+    if (m.higiene < 20) {
+        m.salud -= 5;
+    }
+    if (m.sueno >= 100) {
+        m.salud -= 10;
+    }
+
+    revisarLimites(m);
+
+    // cada 3 turnos pasa un dia
+    m.turnos++;
+    if (m.turnos == 3) {
+        m.turnos = 0;
+        m.diasVividos++;
+    }
+}
+
+// cuando empieza un dia nuevo pasa algo distinto
+void eventoDelDia(Mascota &m) {
+    if (m.turnos != 0) {
+        return;
+    }
+
+    cout << endl << "--- Empieza un nuevo dia ---" << endl;
+
