@@ -82,6 +82,32 @@ void jugar(Mascota &m) {
         cout << m.nombre << " esta muy cansado para jugar" << endl;
         return;
     }
+     cout << "1. Lanzar la pelota" << endl;
+    cout << "2. Saltar la cuerda" << endl;
+    cout << "Opcion: ";
+    juego = leerNumero(1, 2);
+
+     if (juego == 1) {
+        cout << "Le lanzaste la pelota y " << m.nombre << " fue a traerla" << endl;
+        m.felicidad += 20;
+    } else {
+        int saltos;
+        cout << "Cuantos saltos va a dar? (1-10): ";
+        saltos = leerNumero(1, 10);
+
+        for (int i = 1; i <= saltos; i++) {
+            cout << "Salto " << i << "!" << endl;
+        }
+        // entre mas saltos mas feliz pero mas cansado
+        m.felicidad += saltos * 3;
+        m.energia -= saltos;
+    }
+    m.energia -= 20;
+    m.higiene -= 10;
+} 
+
+
+// parte de emilio    
 }
 // en cada turno la mascota tiene mas hambre, sueño y se ensucia
 void pasarTiempo(Mascota &m) {
