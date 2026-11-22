@@ -74,6 +74,14 @@ void alimentar(Mascota &m) {
         m.salud -= 5;
     }
     cout << m.nombre << " comio. Nyam nyam!" << endl;
+    // juega con la mascota
+void jugar(Mascota &m) {
+    int juego;
+
+    if (m.energia < 20) {
+        cout << m.nombre << " esta muy cansado para jugar" << endl;
+        return;
+    }
 }
 // en cada turno la mascota tiene mas hambre, sueño y se ensucia
 void pasarTiempo(Mascota &m) {
