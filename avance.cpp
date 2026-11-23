@@ -44,6 +44,38 @@ void limitar(int &valor) {
         valor = 0;
     }
 }
+// revisa todas las estadisticas de la mascota
+void revisarLimites(Mascota &m) {
+    limitar(m.hambre);
+    limitar(m.felicidad);
+    limitar(m.energia);
+    limitar(m.sueno);
+    limitar(m.higiene);
+    limitar(m.salud);
+}
+
+// pide el nombre y el tamaño de la mascota nueva
+void crearMascota(Mascota &m) {
+    cout << "Nombre de tu mascota: ";
+    getline(cin, m.nombre);
+
+    while (m.nombre == "" || m.nombre[0] == ' ' || m.nombre.length() > 15) {
+        if (cin.eof()) {
+            m.nombre = "Mascota";
+            return;
+        }
+        cout << "El nombre no puede estar vacio ni tener mas de 15 letras: ";
+        getline(cin, m.nombre);
+    }
+    
+    cout << "Tamaño de " << m.nombre << ":" << endl;
+    cout << "1. Pequeño" << endl;
+    cout << "2. Mediano" << endl;
+    cout << "3. Grande" << endl;
+    cout << "Opcion: ";
+    m.tamano = leerNumero(1, 3);
+}
+
 
 // ===================== PARTE DE OSWALDO ===================== //
 
