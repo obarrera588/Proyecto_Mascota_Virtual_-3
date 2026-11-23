@@ -179,4 +179,31 @@ void eventoDelDia(Mascota &m) {
     }
 
     cout << endl << "--- Empieza un nuevo dia ---" << endl;
+switch (m.diasVividos) {
+        case 1:
+            cout << m.nombre << " encontro una galleta en el suelo" << endl;
+            m.hambre -= 15;
+            break;
+        case 2:
+            cout << "Esta lloviendo y " << m.nombre << " se resfrio" << endl;
+            m.salud -= 15;
+            break;
+        case 3:
+            cout << m.nombre << " encontro un juguete nuevo" << endl;
+            m.felicidad += 15;
+            break;
+        case 4:
+            cout << m.nombre << " se revolco en el lodo" << endl;
+            m.higiene -= 30;
+            break;
+        case 5:
+            cout << m.nombre << " no pudo dormir bien anoche" << endl;
+            m.sueno += 20;
+            break;
+        default:
+            cout << m.nombre << " amanecio de buen humor" << endl;
+            m.felicidad += 10;
+    }
+    revisarLimites(m);
+}
 
