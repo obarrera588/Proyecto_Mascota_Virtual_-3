@@ -66,3 +66,36 @@ void jugar(Mascota &m) {
     m.energia -= 20;
     m.higiene -= 10;
 }
+// pone a dormir a la mascota
+void dormir(Mascota &m) {
+    if (m.sueno < 20) {
+        cout << m.nombre << " no tiene sueño" << endl;
+        return;
+    }
+    cout << m.nombre << " se durmio... zzz" << endl;
+    m.sueno = 0;
+    m.energia += 50;
+    m.hambre += 10;
+}
+
+// baña a la mascota
+void banar(Mascota &m) {
+    if (m.higiene > 90) {
+        cout << m.nombre << " ya esta limpio" << endl;
+        return;
+    }
+    cout << "Bañaste a " << m.nombre << endl;
+    m.higiene = 100;
+    m.felicidad -= 5;
+}
+
+// le da medicina a la mascota
+void darMedicina(Mascota &m) {
+    if (m.salud > 80) {
+        cout << m.nombre << " no esta enfermo" << endl;
+        return;
+    }
+    cout << m.nombre << " se tomo la medicina" << endl;
+    m.salud += 30;
+    m.felicidad -= 10;
+}
