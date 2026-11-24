@@ -298,4 +298,132 @@ switch (m.diasVividos) {
     }
     revisarLimites(m);
 }
+// guarda la partida en un archivo
+void guardarPartida(Mascota m) {
+    ofstream archivo("partida.txt");
 
+    if (!archivo.is_open()) {
+        cout << "No se pudo guardar la partida" << endl;
+        return;
+    }
+
+    archivo << m.nombre << endl;
+    archivo << m.tamano << endl;
+    archivo << m.hambre << endl;
+    archivo << m.felicidad << endl;
+    archivo << m.energia << endl;
+    archivo << m.sueno << endl;
+    archivo << m.higiene << endl;
+    archivo << m.salud << endl;
+    archivo << m.turnos << endl;
+    archivo << m.diasVividos << endl;
+    archivo.close();
+
+    cout << "Partida guardada" << endl;
+}
+
+// carga la partida del archivo, devuelve false si no se pudo
+bool cargarPartida(Mascota &m) {
+    ifstream archivo("partida.txt");
+
+    if (!archivo.is_open()) {
+        return false;
+    }
+
+    getline(archivo, m.nombre);
+    archivo >> m.tamano >> m.hambre >> m.felicidad >> m.energia >> m.sueno;
+    archivo >> m.higiene >> m.salud >> m.turnos >> m.diasVividos;
+
+    // si el archivo esta mal escrito no se carga
+    if (archivo.fail() || m.nombre == "" || m.tamano < 1 || m.tamano > 3 || m.salud <= 0) {
+        archivo.close();
+        return false;
+    }
+    archivo.close();
+
+    revisarLimites(m);
+    cout << "Partida cargada" << endl;
+    return true;
+}
+
+// muestra como termino el juego
+void mostrarFinal(Mascota m, int diasMeta) {
+    cout << endl;
+    dibujarMascota(m);
+
+    if (m.salud <= 0) {
+        cout << m.nombre << " se murio :(" << endl;
+        if (m.hambre >= 100) {
+            cout << "No le diste de comer..." << endl;
+        }
+    } else if (m.diasVividos >= diasMeta) {
+        cout << "Ganaste! " << m.nombre << " sobrevivio " << diasMeta << " dias" << endl;
+    } else {
+        cout << "Adios! " << m.nombre << " te va a extrañar" << endl;
+    }
+    cout << "Dias vividos: " << m.diasVividos << endl;
+}
+
+// ======================= PROGRAMA PRINCIPAL =======================
+
+int main() {
+    Mascota m;
+    int opcion;
+    int diasMeta = 7;
+
+    cout << "========== MASCOTA VIRTUAL ==========" << endl;
+    cout << "Cuida a tu mascota durante " << diasMeta << " dias" << endl;
+    cout << "1. Nueva mascota" << endl;
+    cout << "2. Cargar partida" << endl;
+    cout << "Opcion: ";
+    opcion = leerNumero(1, 2);
+
+    if (opcion == 2) {
+        if (!cargarPartida(m)) {
+            cout << "No hay partida guardada, vamos a crear una nueva" << endl;
+            crearMascota(m);
+        }
+    } else {
+        crearMascota(m);
+    }
+
+    do {
+        mostrarEstado(m);
+        cout << endl;
+        cout << "1. Alimentar" << endl;
+        cout << "2. Jugar" << endl;
+        cout << "3. Dormir" << endl;
+        cout << "4. Bañar" << endl;
+        cout << "5. Dar medicina" << endl;
+        cout << "6. Guardar partida" << endl;
+        cout << "7. Salir" << endl;
+        cout << "Opcion: ";
+        opcion = leerNumero(1, 7);
+
+        if (opcion == 1) {
+            alimentar(m);
+        } else if (opcion == 2) {
+            jugar(m);
+        } else if (opcion == 3) {
+            dormir(m);
+        } else if (opcion == 4) {
+            banar(m);
+        } else if (opcion == 5) {
+            darMedicina(m);
+        } else if (opcion == 6) {
+            guardarPartida(m);
+        }
+
+        // guardar y salir no gastan turno
+        if (opcion >= 1 && opcion <= 5) {
+            revisarLimites(m);
+            pasarTiempo(m);
+            eventoDelDia(m);
+        }
+
+    } while (opcion != 7 && m.salud > 0 && m.diasVividos < diasMeta);
+
+    mostrarFinal(m, diasMeta);
+
+    return 0;
+}
