@@ -117,6 +117,26 @@ void dibujarMascota(Mascota m) {
     }
 }
 
+// muestra el dibujo y todas las barras
+void mostrarEstado(Mascota m) {
+    cout << endl;
+    cout << "========== " << m.nombre << " - Dia " << m.diasVividos + 1 << " ==========" << endl;
+    dibujarMascota(m);
+    mostrarBarra("Salud    ", m.salud);
+    mostrarBarra("Hambre   ", m.hambre);
+    mostrarBarra("Energia  ", m.energia);
+    mostrarBarra("Sueño    ", m.sueno);
+    mostrarBarra("Felicidad", m.felicidad);
+    mostrarBarra("Higiene  ", m.higiene);
+
+    if (m.hambre >= 80) {
+        cout << "Cuidado! " << m.nombre << " tiene mucha hambre" << endl;
+    }
+    if (m.salud <= 30) {
+        cout << "Cuidado! " << m.nombre << " esta enfermo" << endl;
+    }
+}
+
 // ===================== PARTE DE OSWALDO ===================== //
 
 // le da de comer a la mascota
