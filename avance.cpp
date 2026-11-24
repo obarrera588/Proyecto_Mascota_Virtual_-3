@@ -76,6 +76,46 @@ void crearMascota(Mascota &m) {
     m.tamano = leerNumero(1, 3);
 }
 
+// muestra una barra de 10 espacios segun el valor
+void mostrarBarra(string texto, int valor) {
+    cout << texto << " [";
+    for (int i = 1; i <= 10; i++) {
+        if (i <= valor / 10) {
+            cout << "#";
+        } else {
+            cout << "-";
+        }
+    }
+    cout << "] " << valor << "%" << endl;
+}
+
+// dibuja la mascota segun su tamaño y su estado de animo
+void dibujarMascota(Mascota m) {
+    string cara;
+
+    if (m.salud <= 0) {
+        cara = "(x_x)";
+    } else if (m.salud < 30 || m.hambre > 80) {
+        cara = "(T_T)";
+    } else if (m.felicidad > 70) {
+        cara = "(^_^)";
+    } else {
+        cara = "(o_o)";
+    }
+
+    if (m.tamano == 1) {
+        cout << "   " << cara << endl;
+    } else if (m.tamano == 2) {
+        cout << "    _____" << endl;
+        cout << "   |" << cara << "|" << endl;
+        cout << "   |_____|" << endl;
+    } else {
+        cout << "    _______" << endl;
+        cout << "   |       |" << endl;
+        cout << "   | " << cara << " |" << endl;
+        cout << "   |_______|" << endl;
+    }
+}
 
 // ===================== PARTE DE OSWALDO ===================== //
 
